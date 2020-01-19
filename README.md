@@ -1,0 +1,1 @@
+# goof-cloud-config
