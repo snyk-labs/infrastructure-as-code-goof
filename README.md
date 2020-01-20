@@ -1,1 +1,5 @@
-# goof-cloud-config
+# cloud-config-goof
+
+## Web
+
+Vulnerable application with RCE and privileged access.
