@@ -15,5 +15,8 @@ spec:
       containers:
         - name: web
           image: web:1.0.0
+          #imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          securityContext:
+            privileged: true

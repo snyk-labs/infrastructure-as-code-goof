@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-deployment
+spec:
+  selector:
+    matchLabels:
+      app: admin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: admin
+    spec:
+      containers:
+        - name: admin
+          image: admin:1.0.0
+          #imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: privileged-pod-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: web-service
+              servicePort: 8080
+          - path: /admin
+            backend:
+              serviceName: admin-service
+              servicePort: 8080
