@@ -1,1 +1,1 @@
-# goof-cloud-config
+# cloud-config-goof
