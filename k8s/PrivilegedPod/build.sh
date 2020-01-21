@@ -3,6 +3,7 @@
 set -e
 
 eval $(minikube docker-env)
+minikube addons enable ingress
 
 echo "============="
 echo "Deploy web..."
