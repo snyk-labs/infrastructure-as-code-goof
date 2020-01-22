@@ -31,9 +31,13 @@ if (isset($_POST['name']) && isset($_POST['text'])) {
           crossorigin="anonymous">
     <title>Goof Guest Book</title>
 </head>
-<body>
+<body class="bg-light">
 <div class="album py-5 bg-light">
     <div class="container">
+        <a type="button" class="btn btn-primary btn-lg" href="/donate">Support us!</a>
+
+        <hr>
+
         <div class="row">
             <? foreach ($posts as $value) { ?>
                 <div class="col-md-4">

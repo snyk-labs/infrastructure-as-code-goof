@@ -16,20 +16,11 @@ kubectl apply -f service.yaml
 cd ..
 
 echo "==============="
-echo "Deploy redis..."
+echo "Deploy payment..."
 echo "==============="
 
-cd redis
-kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
-cd ..
-
-echo "==============="
-echo "Deploy admin..."
-echo "==============="
-
-cd admin
-docker build -t admin:1.0.0 .
+cd payment
+docker build -t payment:1.0.0 .
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 cd ..

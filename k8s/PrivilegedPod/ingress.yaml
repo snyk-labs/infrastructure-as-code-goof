@@ -10,7 +10,7 @@ spec:
             backend:
               serviceName: web-service
               servicePort: 8080
-          - path: /admin
+          - path: /donate
             backend:
-              serviceName: admin-service
+              serviceName: payment-service
               servicePort: 8080
