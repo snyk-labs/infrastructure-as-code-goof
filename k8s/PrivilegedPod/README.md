@@ -1,17 +1,29 @@
 # Privileged Pod
 
-1. Install and run [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation).
-2. Cleanup environment if needed: `minikube delete`.
-3. `./build.sh`
-4. `minikube dashboard` to get ingress IP address (`192.168.99.100` in my case). 
+## Context
+Privileged pod (AKA `privileged`) is one of the Security Context flags for a Pod or Container.
+Privileged containers can do nearly everything a process on the host can do, and provide no isolation from other workloads. This kind of a setting should be avoided where possible.
 
-## Web
+## Setup
+    1. Install and run [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation).
+    2. Cleanup environment if needed: `minikube delete`.
+    3. `./build.sh`
+    4. `minikube dashboard` to get ingress IP address (`192.168.99.100` in my case). 
 
+## Env components
+### Web
 Vulnerable application with RCE and privileged access.
 
-## Payment
+* Deployment - `k8s/PrivilegedPod/web/deployment.yaml`
 
+    This `k8s` deployment contains the unsecured instruction `privileged: true`
+* Service - `k8s/PrivilegedPod/web/service.yaml`
+
+### Payment
 Payments processing microservice. Completely protected ;).
+
+* Deployment - `k8s/PrivilegedPod/payment/deployment.yaml`
+* Service - `k8s/PrivilegedPod/payment/service.yaml`
 
 ## Exploit
 
