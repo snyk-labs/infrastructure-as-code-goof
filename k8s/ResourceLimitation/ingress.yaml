@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: resource-limitation-pod-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /app1
+            backend:
+              serviceName: app1-service
+              servicePort: 8081
+          - path: /app2
+            backend:
+              serviceName: app2-service
+              servicePort: 8081
