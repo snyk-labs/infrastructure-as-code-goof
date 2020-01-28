@@ -5,10 +5,10 @@ Privileged pod (AKA `privileged`) is one of the Security Context flags for a Pod
 Privileged containers can do nearly everything a process on the host can do, and provide no isolation from other workloads. This kind of a setting should be avoided where possible.
 
 ## Setup
-    1. Install and run [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation).
-    2. Cleanup environment if needed: `minikube delete`.
-    3. `./build.sh`
-    4. `minikube dashboard` to get ingress IP address (`192.168.99.100` in my case). 
+1. Install and run [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation).
+2. Cleanup environment if needed: `minikube delete`.
+3. Run `./build.sh`
+4. `minikube dashboard` to get ingress IP address (`192.168.99.100` in my case). 
 
 ## Env components
 ### Web
