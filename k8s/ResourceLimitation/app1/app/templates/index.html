@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vulnrable App</title>
+
+    <meta charset="utf-8" />
+
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('time').innerHTML =
+                h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i
+            }; // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+</head>
+<header>
+    <h1>This is our vulnrable app</h1>
+    <p>
+        Because of certain problematic issues on the backend side, some of the APIs might cause the backend of the app to work hard and allocate memory for a long time.
+    </p>
+    <p>
+        This app is running inside a standalone pod. The pod itself is sharing the same node as other innocent pods.
+    </p>
+    <p>
+        Malicious users can use this fact and drain the memory resources from the pod. Without any resource limitations of the pod, the malicious user can also effect other pods that run on the same node.
+    </p>
+    <p>
+        <b>Try the links below to play the attacker role!</b>
+    </p>
+</header>
+
+<body onload="startTime()">
+    <h2 id="time"></h2>
+
+    <ul>
+        {% for content in contents %} {% if content.link %}
+
+        <li>
+            <h3>
+                <A href={{ content.link }}>{{ content.body }}</A>
+            </h3>
+        </li>
+        {% else %}
+
+        <li>
+            <h2>{{ content.body }} </h2>
+        </li>
+        {% endif %} {% endfor %}
+    </ul>
+</body>
+<div class="bd-example" align="middle">
+
+    <img src="{{url_for('static', filename='duck1.jpeg')}}" align="middle" />
+
+</div>
+
+</html>

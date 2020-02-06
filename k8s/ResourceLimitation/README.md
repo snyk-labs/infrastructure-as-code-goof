@@ -5,5 +5,7 @@ Limiting the Memory available to the container has operational as well as securi
 
 ## Env components
 ### App 1 / 2
+![Alt text](pics/app1.png?raw=true "App1 - Vulnrable app")
+![Alt text](pics/app2.png?raw=true "App1 - Innocent app")
 
 ## Problem

@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: resource-limitation-pod-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - http:
@@ -11,6 +13,10 @@ spec:
               serviceName: app1-service
               servicePort: 8081
           - path: /app2
+            backend:
+              serviceName: app2-service
+              servicePort: 8081
+          - path: /static
             backend:
               serviceName: app2-service
               servicePort: 8081

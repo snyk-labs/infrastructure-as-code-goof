@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Innocent App</title>
+
+    <meta charset="utf-8" />
+
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('time').innerHTML =
+                h + ":" + m + ":" + s;
+            // var t = setTimeout(startTime, 500);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i
+            }; // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
+</head>
+
+<header>
+    <h1>This is our innocent app</h1>
+    <p>Other apps running on the same node (inside other pods) can drain the memory of this app.</p>
+    <p>
+        <b>Use the links below to check the status of the pod!</b>
+    </p>
+</header>
+
+<body onload="startTime()">
+    <h2 id="time"></h2>
+
+    {% if link %}
+
+    <body>
+        <A HREF={{ link }}>{{ body }}</A> </body>
+    {% elif body %}
+
+    <body>{{ body }} </body>
+
+    {% else %}
+
+    <body>Welcome to Innocent App!</body>
+    {% endif %}
+
+    <meta charset="utf-8" />
+    <div class="bd-example" align="middle">
+        <img src="{{url_for('static', filename='duck2.jpeg')}}" align="middle" />
+    </div>
+</body>
+
+</html>
