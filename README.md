@@ -1,5 +1,5 @@
 # Cloud Config Goof
-A full demo environment to educate about the challanges and potential security issues in the cloud config world. 
+A full demo environment to educate about the challenges and potential security issues in the cloud config world. 
 
 # Issues
 

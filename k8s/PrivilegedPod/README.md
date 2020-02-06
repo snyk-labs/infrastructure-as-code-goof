@@ -13,11 +13,15 @@ Vulnerable application with RCE and privileged access.
     This `k8s` deployment contains the unsecured instruction `privileged: true`
 * Service - `k8s/PrivilegedPod/web/service.yaml`
 
+<img src="pics/web.png?raw=true" width="400">
+
 ### Payment
 Payments processing microservice. Completely protected ;).
 
 * Deployment - `k8s/PrivilegedPod/payment/deployment.yaml`
 * Service - `k8s/PrivilegedPod/payment/service.yaml`
+
+<img src="pics/payment.png?raw=true" width="400">
 
 ## Exploit
 
