@@ -8,7 +8,7 @@ A full demo environment to educate about the challenges and potential security i
 ## Kubernetes
 * [Privileged pod](k8s/PrivilegedPod/README.md) - what is the problem of having a [privileged pod](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#privileged) on your cluster
 * [Resource limitation](k8s/ResourceLimitation/README.md) - what are the potential problems in case there are no [resource limitations](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#resource-requests-and-limits-of-pod-and-container) on your containers
-
+* [RBAC misconfiguration](k8s/RBAC-Misconfiguration/README.md) - what are the vulnerabilities one exposes the cluster to by misconiguring [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
 
 # General Setup
 1. Install and run [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation).
