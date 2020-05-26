@@ -12,6 +12,7 @@ Misconfiguring a resource can result K8 cluster components performing outside of
 We'd like to demo what can happen if one managed to access a wrongfully-permissioned resource (via a container in this case);
 
 Our demo begins **after** one has achieved RCE on a cluster container and will showcase what can happen starting from that point;
+
 > We chose not to demo RCE-achieving on a container as this diverges from the intent of this demo and was also demoed before.  
 
 That being said, the steps will begin by interacting with one of the containers themselves as in you were in already in RCE state 
@@ -37,6 +38,9 @@ This will do the following:
   <summary>Spoiler alert</summary>
 As we explained, we start our journey from the "ci app" and perform RCE using it;
 The way we interact w/ the app is via HTTP requests to `/?cmd=<ANY_BASH_CMD>`;
+
+> This means that we execute the commands inside a pod!
+>
 That being said, let's fetch the IP of this service initially from within our local cluster:
 
 ```
