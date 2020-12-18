@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: static-web
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
+  labels:
+    role: myrole
+spec:
+  automountServiceAccountToken: false
+  containers:
+    - name: web
+      image: ubuntu:18.04
+      imagePullPolicy: Always
+      command: ["sleep", "infinity"]
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      securityContext:
+        privileged: true
+      ports:
+        - name: web
+          containerPort: 80
+          protocol: TCP
+        - name: proxy
+          containerPort: 8080
+          protocol: TCP
+        - name: health
+          containerPort: 9000
+          protocol: TCP

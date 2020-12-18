@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: nginx # has to match .spec.template.metadata.labels
+  serviceName: "nginx"
+  replicas: 3 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: nginx # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      hostNetwork: true
+      hostIPC: true
+      hostPID: true
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "foo.local"
+      containers:
+      - name: nginx
+        image: k8s.gcr.io/nginx-slim:0.8
+        securityContext: 
+          capabilities:
+            add:
+              - CAP_SYS_ADMIN
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+          runAsUser: 10
+          privileged: true
+          allowPrivilegeEscalation: true
+          seLinuxOptions:
+            level: "s0:c123,c456"
+        ports:
+        - containerPort: 22
+        - containerPort: 443
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+          mountPropagation: Bidirectional
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev/
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi

@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyky
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: snyky
+      app.kubernetes.io/instance: snyky
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: snyky
+        app.kubernetes.io/instance: snyky
+    spec:
+      containers:
+        - name: snyky1
+          image: 'garethr/snyky1:latest'
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http

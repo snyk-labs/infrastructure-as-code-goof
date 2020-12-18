@@ -1,0 +1,53 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          hostNetwork: true
+          hostIPC: true
+          hostPID: true
+          hostAliases:
+            - ip: "127.0.0.1"
+              hostnames:
+                - "foo.local"
+          containers:
+          - name: hello
+            ports:
+              - containerPort: 22
+              - containerPort: 80
+              - containerPort: 443
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+            volumeMounts:
+              - name: varlog
+                mountPath: /var/log
+                mountPropagation: Bidirectional
+            securityContext:
+              capabilities:
+                add:
+                  - CAP_SYS_ADMIN
+              readOnlyRootFilesystem: false
+              runAsUser: 10
+              privileged: true
+              runAsNonRoot: false
+              allowPrivilegeEscalation: true
+              seLinuxOptions:
+                level: "s0:c123,c456"
+          restartPolicy: OnFailure
+          volumes:
+            - name: dev
+              hostPath:
+                path: /dev/
+            - name: dockersock
+              hostPath:
+                path: /var/run/docker.sock
+
+

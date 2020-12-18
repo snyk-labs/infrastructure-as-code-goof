@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-elasticsearch
+  namespace: kube-system
+  labels:
+    k8s-app: fluentd-logging
+spec:
+  selector:
+    matchLabels:
+      name: fluentd-elasticsearch
+  template:
+    metadata:
+      labels:
+        name: fluentd-elasticsearch
+    spec:
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "foo.local"
+      hostNetwork: true
+      hostIPC: true
+      hostPID: true
+      containers:
+        - name: fluentd-elasticsearch
+          image: quay.io/fluentd_elasticsearch/fluentd:v2.5.2
+          ports:
+            - containerPort: 22
+            - containerPort: 80
+            - containerPort: 8080
+          securityContext:
+            capabilities:
+              add:
+                - CAP_SYS_ADMIN
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 10
+            seLinuxOptions:
+              level: "s0:c123,c456"
+            privileged: true
+            allowPrivilegeEscalation: true
+          volumeMounts:
+            - name: varlog
+              mountPath: /var/log
+              mountPropagation: Bidirectional
+            - name: varlibdockercontainers
+              mountPath: /var/lib/docker/containers
+              readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev/
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+
+
