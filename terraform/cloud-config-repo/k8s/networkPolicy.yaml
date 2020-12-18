@@ -1,0 +1,150 @@
+---
+# DOC ID = 0 : allow-all-egress
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-egress
+spec:
+  podSelector: {}
+  egress:
+    - {}
+  policyTypes:
+    - Egress
+---
+# DOC ID = 1 : allow-all-ingress-egress-combined-policy-type
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress-egress-combined-type
+spec:
+  podSelector: {}
+  ingress:
+    - {}
+  egress:
+    - {}
+  policyTypes:
+    - 'Ingress,Egress'
+---
+# DOC ID = 2 : allow-all-ingress-egress
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress-egress
+spec:
+  podSelector: {}
+  ingress:
+    - {}
+  egress:
+    - {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+# DOC ID = 3 : allow-all-ingress-empty-matchExpression
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress-empty-match-expressions
+spec:
+  podSelector:
+    matchExpressions: []
+  ingress:
+    - {}
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 4 : allow-all-ingress-empty-matchLabels
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress-empty-match-labels
+spec:
+  podSelector:
+    matchLabels: {}
+  ingress:
+    - {}
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 5 : allow-all-ingress-rule-multi
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress-rule-multi
+spec:
+  podSelector:
+    matchLabels: {}
+  ingress:
+    - []
+    - from:
+        - ipBlock:
+            cidr: 172.17.0.0/16
+            except:
+              - 172.17.1.0/24
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 6 : allow-all-ingress-rule-empty
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress-rule-empty
+spec:
+  podSelector:
+    matchLabels: {}
+  ingress:
+    - []
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 7 : allow-all-ingress
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-ingress
+spec:
+  podSelector: {}
+  ingress:
+    - {}
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 8 : allow-all-multi-match - should not give any result
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-multi-match
+spec:
+  podSelector:
+    matchLabels:
+      app: web
+    matchExpressions: []
+  ingress:
+    - {}
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 9 : ingress-from-allow-all
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-from-allow-all
+spec:
+  podSelector:
+    matchExpressions: []
+  ingress:
+    - from: []
+  policyTypes:
+    - Ingress
+---
+# DOC ID = 10 : default-deny-all - should not give any result
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: default-deny-all
+  namespace: default
+spec:
+  podSelector: {}
+  ingress: []
+  policyType:
+    - Ingress

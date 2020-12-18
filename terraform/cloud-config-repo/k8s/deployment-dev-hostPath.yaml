@@ -1,0 +1,89 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyky
+  labels:
+    app.kubernetes.io/name: snyky
+    helm.sh/chart: snyky-0.1.0
+    app.kubernetes.io/instance: snyky
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: snyky
+      app.kubernetes.io/instance: snyky
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: snyky
+        app.kubernetes.io/instance: snyky
+    spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "foo.local"
+        - "bar.local"
+      - ip: "10.1.2.3"
+        hostnames:
+        - "foo.remote"
+        - "bar.remote"
+      hostPID: true
+      containers:
+        - name: snyky1
+          image: "garethr/snyky1:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+        - name: snyky2
+          image: "garethr/snyky2:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            # limits:
+              # cpu: 100
+              # memory: 100
+          securityContext:
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: true
+            # runAsNonRoot: true
+            runAsUser: 1
+            privileged: true
+            capabilities:
+              # drop:
+                # - all
+              add:
+                - CAP_SYS_ADMIN
+      volumes:
+        - name: devices
+          hostPath:
+            path: /dev/
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock  
+            

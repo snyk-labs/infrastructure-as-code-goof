@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyky
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: snyky
+      app.kubernetes.io/instance: snyky
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: snyky
+        app.kubernetes.io/instance: snyky
+    spec:
+      containers:
+        - name: snyky1
+          image: 'garethr/snyky1:latest'
+          imagePullPolicy: Always
+        - name: snyky2
+          image: 'garethr/snyky2:latest'
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyky-default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: snyky
+      app.kubernetes.io/instance: snyky
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: snyky
+        app.kubernetes.io/instance: snyky
+    spec:
+      containers:
+        - name: snyky1
+          image: 'garethr/snyky1:latest'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snyky-ok
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: snyky
+      app.kubernetes.io/instance: snyky
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: snyky
+        app.kubernetes.io/instance: snyky
+    spec:
+      containers:
+        - name: snyky1
+          image: 'garethr/snyky1:latest'
+          imagePullPolicy: Always

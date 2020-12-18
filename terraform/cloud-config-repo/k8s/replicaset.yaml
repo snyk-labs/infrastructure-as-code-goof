@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      hostNetwork: true
+      hostIPC: true
+      hostPID: true
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "foo.local"
+      containers:
+      - name: php-redis
+        image: gcr.io/google_samples/gb-frontend:v3
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+            mountPropagation: Bidirectional
+        ports:
+          - containerPort: 22
+          - containerPort: 80
+          - containerPort: 443
+        securityContext:
+          capabilities:
+            add:
+              - CAP_SYS_ADMIN
+          readOnlyRootFilesystem: false
+          runAsUser: 10
+          runAsNonRoot: false
+          privileged: true
+          allowPrivilegeEscalation: true
+          seLinuxOptions:
+            level: "s0:c123,c456"
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev/
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+
+
+

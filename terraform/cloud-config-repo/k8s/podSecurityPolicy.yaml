@@ -1,0 +1,278 @@
+---
+# DOC ID = 0 : PSP privileged true
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP privileged true
+spec:
+  privileged: true
+  requiredDropCapabilities:
+    - ALL
+---
+# DOC ID = 1 : PSP allowPrivilegeEscalation true
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP allowPrivilegeEscalation true
+spec:
+  allowPrivilegeEscalation: true
+  requiredDropCapabilities:
+    - ALL
+---
+# DOC ID = 2 : PSP defaultAllowPrivilegeEscalation true
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP defaultAllowPrivilegeEscalation true
+spec:
+  defaultAllowPrivilegeEscalation: true
+  requiredDropCapabilities:
+    - ALL
+---
+# DOC ID = 3 : PSP hostPID true
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP hostPID true
+spec:
+  requiredDropCapabilities:
+    - ALL
+  hostPID: true
+---
+# DOC ID = 4 : PSP hostIPC true
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP hostIPC true
+spec:
+  requiredDropCapabilities:
+    - ALL
+  hostIPC: true
+---
+# DOC ID = 5 : PSP hostNetwork true
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP hostNetwork true
+spec:
+  requiredDropCapabilities:
+    - ALL
+  hostIPC: false
+  hostNetwork: true
+---
+# DOC ID = 6 : PSP runAsUser role RunAsAny
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP runAsUser role RunAsAny
+spec:
+  requiredDropCapabilities:
+    - ALL
+  runAsUser:
+    rule: RunAsAny
+---
+# DOC ID = 7 : PSP runAsUser role MustRunAs
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP runAsUser role RunAsAny
+spec:
+  requiredDropCapabilities:
+    - ALL
+  runAsUser:
+    rule: MustRunAs
+    ranges:
+      - min: 0
+        max: 0
+---
+# DOC ID = 8 : PSP allowedCapabilities is not []
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP allowedCapabilities is not []
+spec:
+  requiredDropCapabilities:
+    - ALL
+  allowedCapabilities:
+    - '*'
+---
+# DOC ID = 9 : PSP allowedCapabilities is not []
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP allowedCapabilities is not []
+spec:
+  requiredDropCapabilities:
+    - ALL
+  allowedCapabilities:
+    - ALL
+---
+# DOC ID = 10 : PSP allowedCapabilities is not []
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP allowedCapabilities is not []
+spec:
+  requiredDropCapabilities:
+    - ALL
+  allowedCapabilities:
+    - all
+---
+# DOC ID = 11 : PSP allowedCapabilities is not []
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP allowedCapabilities is not []
+spec:
+  requiredDropCapabilities:
+    - ALL
+  allowedCapabilities:
+    - SYS_ADMIN
+---
+# DOC ID = 12 : PSP requiredDropCapabilities is not ALL and not NET_RAW - should not give any result
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP requiredDropCapabilities is not ALL and not NET_RAW
+spec:
+  requiredDropCapabilities:
+    - all
+---
+# DOC ID = 13 : PSP requiredDropCapabilities is NET_RAW - should not give any result
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP requiredDropCapabilities is NET_RAW
+spec:
+  requiredDropCapabilities:
+    - 'NET_RAW'
+---
+# DOC ID = 14 : PSP requiredDropCapabilities is SYS_ADMIN
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP requiredDropCapabilities is NET_RAW
+spec:
+  requiredDropCapabilities:
+    - 'SYS_ADMIN'
+---
+# DOC ID = 15 : PSP without requiredDropCapabilities (no spec)
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP without requiredDropCapabilities
+---
+# DOC ID = 16 : PSP without requiredDropCapabilities
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP without requiredDropCapabilities
+spec:
+  privileged: false
+---
+# DOC ID = 17 : secured settings - should not give any result
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP hostPID true
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  defaultAllowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  hostPID: false
+  hostIPC: false
+  hostNetwork: false
+---
+# DOC ID = 18 : PSP runAsGroup role RunAsAny
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP runAsGroup role RunAsAny
+spec:
+  requiredDropCapabilities:
+    - ALL
+  runAsGroup:
+    rule: RunAsAny
+---
+# DOC ID = 19 : PSP runAsGroup role MustRunAs
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP runAsGroup role RunAsAny
+spec:
+  requiredDropCapabilities:
+    - ALL
+  runAsGroup:
+    rule: MustRunAs
+    ranges:
+      - min: 0
+        max: 0
+---
+# DOC ID = 20 : PSP with permissive seccomp profiles (*)
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP unconfined seccomp allowed
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'unconfined, docker/default'
+spec:
+  requiredDropCapabilities:
+    - all
+---
+# DOC ID = 21 : PSP with permissive seccomp profiles (unconfined)
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP seccomp all profiles allowed
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
+spec:
+  requiredDropCapabilities:
+    - all
+---
+# DOC ID = 22 : PSP with permissive seccomp default profiles (unconfined)
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP unconfined seccomp default profile
+  annotations:
+    seccomp.security.alpha.kubernetes.io/defaultProfileName: 'unconfined'
+spec:
+  requiredDropCapabilities:
+    - all
+---
+# DOC ID = 23 : PSP with volumes *
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP allowing all volumes
+spec:
+  requiredDropCapabilities:
+    - all
+  volumes:
+    - '*'
+    - 'configMap'
+---
+# DOC ID = 24 : PSP with default unconfined profile allowed
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP with default unconfined profile allowed
+  annotations:
+    apparmor.security.beta.kubernetes.io/defaultProfileName: 'unconfined'
+spec:
+  requiredDropCapabilities:
+    - all
+---
+# DOC ID = 25 : PSP unconfined apparmor default profile - multiprofile
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: PSP unconfined apparmor default profile - multiprofile
+  annotations:
+    apparmor.security.beta.kubernetes.io/defaultProfileName: 'runtime/default,unconfined'
+spec:
+  requiredDropCapabilities:
+    - all

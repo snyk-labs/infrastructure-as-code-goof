@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      hostNetwork: true
+      hostIPC: true
+      hostPID: true
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "foo.local"
+      containers:
+      - name: nginx
+        securityContext:
+          capabilities:
+            add:
+              - CAP_SYS_ADMIN
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+          runAsUser: 10
+          privileged: true
+          allowPrivilegeEscalation: true
+          seLinuxOptions:
+            level: "s0:c123,c456"
+        image: nginx
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+            mountPropagation: Bidirectional
+        ports:
+        - containerPort: 80
+        - containerPort: 22
+        - containerPort: 443
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev/
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+
+
