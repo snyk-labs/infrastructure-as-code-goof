@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
- Description: Aurora
+Description: Aurora
 
 # Create the Aurora MySQL or PostgreSQL database(s). Currently, this template only supports alarms for Aurora MySQL.
 
@@ -188,11 +188,11 @@ Resources:
     Properties:
       DBSubnetGroupDescription: Database subnet group
       SubnetIds:
-      - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet1ID
-      - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet2ID
+        - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet1ID
+        - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet2ID
       Tags:
-      - Key: Name
-        Value: !Ref AWS::StackName
+        - Key: Name
+          Value: !Ref AWS::StackName
 
   AuroraCluster:
     Type: AWS::RDS::DBCluster
@@ -222,8 +222,8 @@ Resources:
       MonitoringRoleArn: !If [ EnhancedMonitoringSupprtedAndEnabled, !GetAtt EnhancedMonitoringRole.Arn, !Ref "AWS::NoValue" ]
       CopyTagsToSnapshot: true
       Tags:
-      - Key: Name
-        Value: !Ref AWS::StackName
+        - Key: Name
+          Value: !Ref AWS::StackName
     DependsOn: AuroraCluster
 
   AuroraInstance1:
@@ -240,8 +240,8 @@ Resources:
       MonitoringRoleArn: !If [ EnhancedMonitoringSupprtedAndEnabled, !GetAtt EnhancedMonitoringRole.Arn, !Ref "AWS::NoValue" ]
       CopyTagsToSnapshot: true
       Tags:
-      - Key: Name
-        Value: !Ref AWS::StackName
+        - Key: Name
+          Value: !Ref AWS::StackName
     DependsOn: AuroraCluster
 
   DatabaseCpuAlarm:

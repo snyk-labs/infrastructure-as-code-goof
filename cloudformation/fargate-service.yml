@@ -2,9 +2,9 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 # A CloudFormation template to deploy an additional service to Fargate. This requires an existing
-# cluster deployed by fargate.yml.
+# cluster deployed by fargate.cfn.yml.
 
- Description: Fargate Service
+Description: Fargate Service
 
 
 Parameters:
@@ -800,18 +800,18 @@ Resources:
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
       TargetGroupAttributes:
-      - Key: deregistration_delay.timeout_seconds
-        Value: 300
+        - Key: deregistration_delay.timeout_seconds
+          Value: 300
       TargetType: ip
       Tags:
-      - Key: Repository
-        Value: !Ref GitSourceRepo
-      - Key: Branch
-        Value: !Ref GitBranch
-      - Key: Stack
-        Value: !Ref AWS::StackName
-      - Key: Environment
-        Value: !Ref EnvironmentName
+        - Key: Repository
+          Value: !Ref GitSourceRepo
+        - Key: Branch
+          Value: !Ref GitBranch
+        - Key: Stack
+          Value: !Ref AWS::StackName
+        - Key: Environment
+          Value: !Ref EnvironmentName
 
   ListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule

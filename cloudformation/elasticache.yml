@@ -3,8 +3,17 @@ AWSTemplateFormatVersion: 2010-09-09
 
 # A CloudFormation template to create/configure an AWS ElastiCache Cluster based on parameters,
 # along with an associated security group and subnet group.
+#
+# You can specify either redis or memcached as an engine, the node (aka instance) type, and
+# the number of nodes.
+#
+# From the Startup Kit Templates, this template requires the name of an existing vpc.cfn.yml stack as
+# a parameter.
+#
+# This template is released under Apache Version 2.0, and can be forked, copied, modified,
+# customized, etc. to match your application/system requirements.
 
- Description: ElastiCache and related resources
+Description:  ElastiCache and related resources
 
 Parameters:
 

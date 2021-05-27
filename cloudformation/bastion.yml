@@ -5,7 +5,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 # bastion, see the following AWS blog post:
 # https://aws.amazon.com/blogs/security/securely-connect-to-linux-instances-running-in-a-private-amazon-vpc/
 
- Description: Bastion
+Description: Bastion
 
 
 Parameters:
@@ -84,21 +84,21 @@ Resources:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
-        - Effect: Allow
-          Principal:
-            Service: ec2.amazonaws.com
-          Action: sts:AssumeRole
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
       Path: /
       Policies:
-      - PolicyName: CloudWatchLogs
-        PolicyDocument:
-          Version: 2012-10-17
-          Statement:
-          - Effect: Allow
-            Action:
-            - logs:DescribeLogStreams
-            - logs:PutLogEvents
-            Resource: !GetAtt BastionSecureLogGroup.Arn
+        - PolicyName: CloudWatchLogs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:DescribeLogStreams
+                  - logs:PutLogEvents
+                Resource: !GetAtt BastionSecureLogGroup.Arn
     DependsOn: BastionSecureLogGroup
 
   BastionInstanceProfile:
@@ -197,17 +197,17 @@ Resources:
               command: /usr/local/sbin/configure_mfa.sh
 
           services:
-              sysvinit:
-                cfn-hup:
-                  enabled: true
-                  ensureRunning: true
-                  files:
-                    - /etc/cfn/cfn-hup.conf
-                    - /etc/cfn/hooks.d/cfn-auto-reloader.conf
-                awslogs:
-                  enabled: true
-                  ensureRunning: true
-                  files: /etc/awslogs/awslogs.conf
+            sysvinit:
+              cfn-hup:
+                enabled: true
+                ensureRunning: true
+                files:
+                  - /etc/cfn/cfn-hup.conf
+                  - /etc/cfn/hooks.d/cfn-auto-reloader.conf
+              awslogs:
+                enabled: true
+                ensureRunning: true
+                files: /etc/awslogs/awslogs.conf
 
     Properties:
       InstanceType: t2.micro
@@ -271,51 +271,51 @@ Resources:
 
   # When a user tries to SSH with invalid username the activity is logged in the SSH log file
   SshInvalidUserMetricFilter:
-      Type: AWS::Logs::MetricFilter
-      Properties:
-        LogGroupName: !Ref BastionSecureLogGroup
-        FilterPattern: "[Mon, day, timestamp, ip, id, status = Invalid, ...]"
-        MetricTransformations:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref BastionSecureLogGroup
+      FilterPattern: "[Mon, day, timestamp, ip, id, status = Invalid, ...]"
+      MetricTransformations:
         - MetricValue: 1
           MetricNamespace: SSH
           MetricName: sshInvalidUser
 
   SshInvalidhUserAlarm:
-      Type: AWS::CloudWatch::Alarm
-      Properties:
-        AlarmDescription: SSH connections attempted with invalid username is greater than 3 over 1 minutes
-        MetricName: sshInvalidUser
-        Namespace: SSH
-        Statistic: Sum
-        Period: 60
-        EvaluationPeriods: 1
-        Threshold: 3
-        ComparisonOperator: GreaterThanThreshold
-        TreatMissingData: notBreaching
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: SSH connections attempted with invalid username is greater than 3 over 1 minutes
+      MetricName: sshInvalidUser
+      Namespace: SSH
+      Statistic: Sum
+      Period: 60
+      EvaluationPeriods: 1
+      Threshold: 3
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
 
   # When a user uses a bad private key pair or username
   SshClosedConnectionMetricFilter:
-      Type: AWS::Logs::MetricFilter
-      Properties:
-        LogGroupName: !Ref BastionSecureLogGroup
-        FilterPattern: "[Mon, day, timestamp, ip, id, msg1= Connection, msg2 = closed, ...]"
-        MetricTransformations:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref BastionSecureLogGroup
+      FilterPattern: "[Mon, day, timestamp, ip, id, msg1= Connection, msg2 = closed, ...]"
+      MetricTransformations:
         - MetricValue: 1
           MetricNamespace: SSH
           MetricName: sshClosedConnection
 
   SshClosedConnectionAlarm:
-      Type: AWS::CloudWatch::Alarm
-      Properties:
-        AlarmDescription: SSH connections closed due to invalid SSH key or username is greater than 5 in 5 minutes
-        MetricName: sshClosedConnection
-        Namespace: SSH
-        Statistic: Sum
-        Period: 300
-        EvaluationPeriods: 1
-        Threshold: 5
-        ComparisonOperator: GreaterThanThreshold
-        TreatMissingData: notBreaching
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: SSH connections closed due to invalid SSH key or username is greater than 5 in 5 minutes
+      MetricName: sshClosedConnection
+      Namespace: SSH
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 5
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
 
 Outputs:
 

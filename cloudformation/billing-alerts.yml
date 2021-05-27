@@ -4,7 +4,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
 
   AlarmThreshold:
-    Description: Set a threshold for the alarm to go off if the estimated charge is exceeded. 
+    Description: Set a threshold for the alarm to go off if the estimated charge is exceeded.
     Type: Number
     MinValue: 1
     MaxValue: 10000000
@@ -23,22 +23,22 @@ Resources:
       Namespace: AWS/Billing
       MetricName: EstimatedCharges
       Dimensions:
-      - Name: Currency
-        Value: USD
+        - Name: Currency
+          Value: USD
       Statistic: Maximum
       Period: 21600
       EvaluationPeriods: 1
       Threshold: !Ref AlarmThreshold
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
-      - !Ref BillingAlarmTopic
+        - !Ref BillingAlarmTopic
 
   BillingAlarmTopic:
     Type: AWS::SNS::Topic
     Properties:
       Subscription:
-      - Endpoint: !Ref Email
-        Protocol: email
+        - Endpoint: !Ref Email
+          Protocol: email
 
 Outputs:
 
@@ -52,4 +52,4 @@ Outputs:
     Description: Billing Alarm Topic Name
     Value: !GetAtt BillingAlarmTopic.TopicName
     Export:
-        Name: !Sub ${AWS::StackName}-BillingAlarmTopicName
+      Name: !Sub ${AWS::StackName}-BillingAlarmTopicName

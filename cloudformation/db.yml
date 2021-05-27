@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
- Description: RDS
+Description: RDS
 
 # Database stack creation prerequisite:  First create a VPC stack - see README for more info
 Parameters:
@@ -208,11 +208,11 @@ Resources:
     Properties:
       DBSubnetGroupDescription: Database subnet group
       SubnetIds:
-      - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet1ID
-      - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet2ID
+        - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet1ID
+        - Fn::ImportValue: !Sub ${NetworkStackName}-PrivateSubnet2ID
       Tags:
-      - Key: Name
-        Value: !Ref AWS::StackName
+        - Key: Name
+          Value: !Ref AWS::StackName
 
   Database:
     Type: AWS::RDS::DBInstance
@@ -233,8 +233,8 @@ Resources:
       MonitoringRoleArn: !If [ EnhancedMonitoringSupprtedAndEnabled, !GetAtt EnhancedMonitoringRole.Arn, !Ref "AWS::NoValue" ]
       CopyTagsToSnapshot: true
       Tags:
-      - Key: Name
-        Value: !Ref AWS::StackName
+        - Key: Name
+          Value: !Ref AWS::StackName
     DependsOn: DatabaseSubnetGroup
 
   DatabaseCpuAlarm:

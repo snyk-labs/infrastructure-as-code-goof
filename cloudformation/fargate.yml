@@ -20,7 +20,7 @@ AWSTemplateFormatVersion: 2010-09-09
 # This template is released under Apache Version 2.0, and can be forked, copied, modified,
 # customized, etc. to match your application/system requirements.
 
-Description: SASKV5N Fargate
+Description: Fargate
 
 Parameters:
 
