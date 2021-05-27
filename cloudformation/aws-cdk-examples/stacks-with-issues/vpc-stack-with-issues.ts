@@ -6,6 +6,7 @@ import {
   SecurityGroup,
   Vpc
 } from '@aws-cdk/aws-ec2';
+import {LoadBalancerStack} from "./loadbalancer-stack";
 
 export class VpcStackWithIssues extends cdk.Stack {
   constructor(scope: cdk.Construct,
@@ -31,4 +32,5 @@ export class VpcStackWithIssues extends cdk.Stack {
 
 const app = new cdk.App();
 new VpcStackWithIssues(app, 'VpcStackWithIssues', {});
+new LoadBalancerStack(app, 'LoadBalancerStack');
 
