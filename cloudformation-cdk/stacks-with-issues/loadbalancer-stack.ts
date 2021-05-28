@@ -30,7 +30,3 @@ export class LoadBalancerStack extends cdk.Stack {
     listener.connections.allowDefaultPortFromAnyIpv4('Open to the world');
   }
 }
-//
-// const app = new cdk.App();
-// new LoadBalancerStack(app, 'LoadBalancerStack');
-// app.synth();
