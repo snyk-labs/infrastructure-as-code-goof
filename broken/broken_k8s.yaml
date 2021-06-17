@@ -1,0 +1,5 @@
+api_version: some
+kind: test
+metadata:
+spec: this_is_now broken
+  - this should not work
