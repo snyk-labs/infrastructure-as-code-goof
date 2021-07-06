@@ -1,12 +1,12 @@
-# Snyk Cloud Config Goof contributor agreement
+# Snyk Infrastructure as Code Goof contributor agreement
 
-This Snyk Cloud Config Goof Agreement (this **"Agreement"**) applies to any Contribution you make to any Work.
+This Snyk Infrastructure as Code Goof Agreement (this **"Agreement"**) applies to any Contribution you make to any Work.
 
 This is a binding legal agreement on you and any organization you represent. If you are signing this Agreement on behalf of your employer or other organization, you represent and warrant that you have the authority to agree to this Agreement on behalf of the organization.
 
 ## 1. Definitions
 
-**"Contribution"** means any original work, including any modification of or addition to an existing work, that you submit to Snyk Cloud Config Goof repo in any manner for inclusion in any Work.
+**"Contribution"** means any original work, including any modification of or addition to an existing work, that you submit to Snyk Infrastructure as Code Goof repo in any manner for inclusion in any Work.
 
 **"Snyk", "we"** and **"use"** means Snyk Ltd.
 
@@ -16,7 +16,7 @@ This is a binding legal agreement on you and any organization you represent. If 
 
 ## 2. Copyright Assignment, License and Waiver
 
-**(a) Assignment.** By submitting a Contribution, you assign to Snyk all right, title and interest in any copright you have in the Contribution, and you waive any rights, including any moral rights, database rights, etc., that may affect your ownership of the copyright in the Contribution.
+**(a) Assignment.** By submitting a Contribution, you assign to Snyk all right, title and interest in any copyright you have in the Contribution, and you waive any rights, including any moral rights, database rights, etc., that may affect your ownership of the copyright in the Contribution.
 
 **(b) License to Snyk.** If your assignment in Section 2(a) is ineffective for any reason, you grant to us and to any recipient of any Work distributed by use, a perpetual, worldwide, transferable, non-exclusive, no-charge, royalty-free, irrevocable, and sublicensable licence to use, reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Contributions and any derivative work created based on a Contribution. If your license grant is ineffective for any reason, you irrevocably waive and covenant to not assert any claim you may have against us, our successors in interest, and any of our direct or indirect licensees and customers, arising out of our, our successors in interest's, or any of our direct or indirect licensees' or customers' use, reproduction, preparation of derivative works, public display, public performance, sublicense, and distribution of a Contribution. You also agree that we may publicly use your name and the name of any organization on whose behalf you're entering into this Agreement in connection with publicizing the Work.
 
