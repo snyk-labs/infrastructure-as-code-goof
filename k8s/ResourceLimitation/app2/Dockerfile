@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10.0b4
 RUN apt-get update -y
 RUN apt-get install stress-ng -y
 COPY ./app /app
