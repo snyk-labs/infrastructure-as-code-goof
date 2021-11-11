@@ -1,4 +1,4 @@
-FROM php:7.4.22-cli
+FROM php:7.4.25-cli
 COPY src /usr/src/myapp
 WORKDIR /usr/src/myapp
 CMD [ "php", "-S", "0.0.0.0:8080" ]
