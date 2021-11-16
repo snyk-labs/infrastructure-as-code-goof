@@ -1,0 +1,22 @@
+name: Snyk Infrastructure as Code Custom Rules
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  snyk-iac-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Snyk to check Infrastructure as Code files for issues
+        continue-on-error: false
+        uses: snyk/actions/iac@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_CFG_OCI_REGISTRY_URL: ${{ secrets.OCI_REGISTRY_URL }}
+          SNYK_CFG_OCI_REGISTRY_USERNAME: ${{ secrets.OCI_REGISTRY_USERNAME }}
+          SNYK_CFG_OCI_REGISTRY_PASSWORD: ${{ secrets.OCI_REGISTRY_PASSWORD }}
+        with:
+          file: custom-rules/
